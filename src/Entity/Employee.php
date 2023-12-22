@@ -11,10 +11,11 @@ use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
-enum Gender: string {
-    case Homme = 'h';
-    case Femme = "f";
-    case Non_Binary = 'x';
+enum Gender: string
+{
+    case Homme = 'M';
+    case Femme = "F";
+    case Non_Binary = 'X';
 }
 
 
@@ -38,8 +39,8 @@ class Employee
     #[Assert\Length(min: 3, max: 16)]
     private ?string $lastName = null;
 
-    #[ORM\Column(length: 1, type:'string', enumType:Gender::class)]
-    private ?string $gender = null;
+    #[ORM\Column(length: 1, type: 'string', enumType: Gender::class)]
+    private ?Gender $gender = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $hireDate = null;
@@ -100,12 +101,12 @@ class Employee
         return $this;
     }
 
-    public function getGender(): ?string
+    public function getGender(): ?Gender
     {
         return $this->gender;
     }
 
-    public function setGender(string $gender): static
+    public function setGender(Gender $gender): static
     {
         $this->gender = $gender;
 
