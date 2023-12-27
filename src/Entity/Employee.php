@@ -26,7 +26,7 @@ enum Gender: string
 class Employee implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy:"NONE")]
     #[ORM\Column(name: 'emp_no')]
     private ?int $id = null;
 
