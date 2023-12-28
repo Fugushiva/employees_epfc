@@ -32,7 +32,9 @@
                 <td>{{ employee.email }}</td>
                 <td>
                     <a href="{{ path('app_employee_show', {'id': employee.id}) }}">show</a>
+                {% if  app.user.isAdmin %}
                     <a href="{{ path('app_employee_edit', {'id': employee.id}) }}">edit</a>
+                {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -42,6 +44,7 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_employee_new') }}">Create new</a>
+    {% if  app.user.isAdmin %}
+        <a href="{{ path('app_employee_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}
