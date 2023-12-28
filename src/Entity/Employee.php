@@ -26,7 +26,7 @@ enum Gender: string
 class Employee implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy:"NONE")]
+    #[ORM\GeneratedValue(strategy: "AUTO")]
     #[ORM\Column(name: 'emp_no')]
     private ?int $id = null;
 
@@ -248,7 +248,8 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isAdmin(): bool {
-        return in_array('ROLE_ADMIN',$this->roles);
+    public function isAdmin(): bool
+    {
+        return in_array('ROLE_ADMIN', $this->roles);
     }
 }

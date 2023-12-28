@@ -19,7 +19,7 @@ final class Version20231227145043 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-  
+
         $this->addSql('ALTER TABLE employees ADD roles JSON NOT NULL COMMENT \'(DC2Type:json)\', ADD password VARCHAR(255) NOT NULL');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_BA82C300E7927C74 ON employees (email)');
     }
