@@ -6,6 +6,7 @@ use App\Repository\TitleRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[ORM\Table('titles')]
 #[ORM\Entity(repositoryClass: TitleRepository::class)]
 class Title
 {
