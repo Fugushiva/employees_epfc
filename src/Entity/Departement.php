@@ -10,12 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: DepartementRepository::class)]
 class Departement
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
-    #[ORM\Column(length: 4)]
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: "NONE")]
+    #[ORM\Column(name: 'dept_no', length: 4)]
     private ?string $deptNo = null;
 
     #[ORM\Column(length: 40)]
@@ -30,10 +29,7 @@ class Departement
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $roi = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+   
 
     public function getDeptNo(): ?string
     {

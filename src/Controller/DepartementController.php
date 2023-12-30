@@ -15,12 +15,13 @@ class DepartementController extends AbstractController
     public function index(DepartementRepository $dr): Response
     {
 
-      
+        var_dump($dr->findAll());
+
 
 
         return $this->render('departement/index.html.twig', [
             'controller_name' => 'DepartementController',
-            
+
         ]);
     }
 

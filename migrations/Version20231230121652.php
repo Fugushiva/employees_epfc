@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231229160204 extends AbstractMigration
+final class Version20231230121652 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -24,13 +24,13 @@ final class Version20231229160204 extends AbstractMigration
         $this->addSql('ALTER TABLE demand ADD CONSTRAINT FK_428D7973A2F57F47 FOREIGN KEY (emp_no) REFERENCES employees (emp_no)');
         $this->addSql('DROP INDEX dept_name ON departments');
         $this->addSql('ALTER TABLE departments ADD id INT AUTO_INCREMENT NOT NULL, CHANGE dept_no dept_no VARCHAR(4) NOT NULL, CHANGE description description LONGTEXT NOT NULL, DROP PRIMARY KEY, ADD PRIMARY KEY (id)');
-        $this->addSql('ALTER TABLE dept_emp DROP FOREIGN KEY dept_emp_ibfk_2');
         $this->addSql('ALTER TABLE dept_emp DROP FOREIGN KEY dept_emp_ibfk_3');
+        $this->addSql('ALTER TABLE dept_emp DROP FOREIGN KEY dept_emp_ibfk_2');
         $this->addSql('DROP INDEX dept_emp_ibfk_2 ON dept_emp');
         $this->addSql('DROP INDEX IDX_B2592B4DA2F57F47 ON dept_emp');
         $this->addSql('ALTER TABLE dept_emp ADD id INT AUTO_INCREMENT NOT NULL, CHANGE dept_no dept_no VARCHAR(4) NOT NULL, DROP PRIMARY KEY, ADD PRIMARY KEY (id)');
-        $this->addSql('ALTER TABLE dept_manager DROP FOREIGN KEY dept_manager_ibfk_3');
         $this->addSql('ALTER TABLE dept_manager DROP FOREIGN KEY dept_manager_ibfk_2');
+        $this->addSql('ALTER TABLE dept_manager DROP FOREIGN KEY dept_manager_ibfk_3');
         $this->addSql('DROP INDEX dept_no ON dept_manager');
         $this->addSql('DROP INDEX IDX_C14AA78EA2F57F47 ON dept_manager');
         $this->addSql('ALTER TABLE dept_manager ADD id INT AUTO_INCREMENT NOT NULL, DROP from_date, DROP to_date, CHANGE dept_no dept_no VARCHAR(4) NOT NULL, CHANGE emp_no title_id INT NOT NULL, DROP PRIMARY KEY, ADD PRIMARY KEY (id)');
@@ -61,16 +61,16 @@ final class Version20231229160204 extends AbstractMigration
         $this->addSql('ALTER TABLE dept_emp MODIFY id INT NOT NULL');
         $this->addSql('DROP INDEX `PRIMARY` ON dept_emp');
         $this->addSql('ALTER TABLE dept_emp DROP id, CHANGE dept_no dept_no CHAR(4) NOT NULL');
+        $this->addSql('ALTER TABLE dept_emp ADD CONSTRAINT dept_emp_ibfk_3 FOREIGN KEY (emp_no) REFERENCES employees (emp_no) ON UPDATE CASCADE');
         $this->addSql('ALTER TABLE dept_emp ADD CONSTRAINT dept_emp_ibfk_2 FOREIGN KEY (dept_no) REFERENCES departments (dept_no) ON UPDATE CASCADE ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE dept_emp ADD CONSTRAINT dept_emp_ibfk_3 FOREIGN KEY (emp_no) REFERENCES employees (emp_no)');
         $this->addSql('CREATE INDEX dept_emp_ibfk_2 ON dept_emp (dept_no)');
         $this->addSql('CREATE INDEX IDX_B2592B4DA2F57F47 ON dept_emp (emp_no)');
         $this->addSql('ALTER TABLE dept_emp ADD PRIMARY KEY (emp_no, dept_no)');
         $this->addSql('ALTER TABLE dept_manager MODIFY id INT NOT NULL');
         $this->addSql('DROP INDEX `PRIMARY` ON dept_manager');
         $this->addSql('ALTER TABLE dept_manager ADD from_date DATE NOT NULL, ADD to_date DATE NOT NULL, DROP id, CHANGE dept_no dept_no CHAR(4) NOT NULL, CHANGE title_id emp_no INT NOT NULL');
-        $this->addSql('ALTER TABLE dept_manager ADD CONSTRAINT dept_manager_ibfk_3 FOREIGN KEY (emp_no) REFERENCES employees (emp_no)');
         $this->addSql('ALTER TABLE dept_manager ADD CONSTRAINT dept_manager_ibfk_2 FOREIGN KEY (dept_no) REFERENCES departments (dept_no) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE dept_manager ADD CONSTRAINT dept_manager_ibfk_3 FOREIGN KEY (emp_no) REFERENCES employees (emp_no)');
         $this->addSql('CREATE INDEX dept_no ON dept_manager (dept_no)');
         $this->addSql('CREATE INDEX IDX_C14AA78EA2F57F47 ON dept_manager (emp_no)');
         $this->addSql('ALTER TABLE dept_manager ADD PRIMARY KEY (emp_no, dept_no)');
