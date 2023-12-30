@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\DeptManagerRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+#[ORM\Table('dept_manager')]
 #[ORM\Entity(repositoryClass: DeptManagerRepository::class)]
 class DeptManager
 {
