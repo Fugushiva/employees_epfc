@@ -3,25 +3,44 @@
 namespace App\Entity;
 
 use App\Repository\DeptManagerRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+
 #[ORM\Table('dept_manager')]
 #[ORM\Entity(repositoryClass: DeptManagerRepository::class)]
 class DeptManager
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
-    #[ORM\Column(length: 4)]
+    
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: "AUTO")]
+    #[ORM\Column(name: "emp_no")]
+    private ?int $empNo = null;
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: "NONE")]
+    #[ORM\Column(name: "dept_no", length: 4)]
     private ?string $deptNo = null;
 
-    #[ORM\Column]
-    private ?int $titleId = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $fromDate = null;
 
-    public function getId(): ?int
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $toDate = null;
+
+   
+
+    public function getEmpNo(): ?int
     {
-        return $this->id;
+        return $this->empNo;
+    }
+
+    public function setEmpNo(int $empNo): static
+    {
+        $this->empNo = $empNo;
+
+        return $this;
     }
 
     public function getDeptNo(): ?string
@@ -36,14 +55,26 @@ class DeptManager
         return $this;
     }
 
-    public function getTitleId(): ?int
+    public function getFromDate(): ?\DateTimeInterface
     {
-        return $this->titleId;
+        return $this->fromDate;
     }
 
-    public function setTitleId(int $titleId): static
+    public function setFromDate(\DateTimeInterface $fromDate): static
     {
-        $this->titleId = $titleId;
+        $this->fromDate = $fromDate;
+
+        return $this;
+    }
+
+    public function getToDate(): ?\DateTimeInterface
+    {
+        return $this->toDate;
+    }
+
+    public function setToDate(\DateTimeInterface $toDate): static
+    {
+        $this->toDate = $toDate;
 
         return $this;
     }

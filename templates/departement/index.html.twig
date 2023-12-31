@@ -12,6 +12,13 @@
     <!--Jérôme-->
     <h1>Départements</h1>
 
+    {% for dep in departements %}
+        <ul><h3>{{dep.deptname}}</h3>
+        <li>{{dep.description}}</li>
+      
+        </ul>
+        
+    {% endfor %}
  
 </div>
 {% endblock %}

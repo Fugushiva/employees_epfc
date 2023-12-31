@@ -14,7 +14,7 @@ class Demand
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'demands')]
+    #[ORM\ManyToOne(inversedBy: 'demand')]
     #[ORM\JoinColumn(name: 'emp_no', referencedColumnName:'emp_no' ,nullable: false)]
     private ?Employee $employe = null;
 

@@ -17,7 +17,7 @@ class Departement
     #[ORM\Column(name: 'dept_no', length: 4)]
     private ?string $deptNo = null;
 
-    #[ORM\Column(length: 40)]
+    #[ORM\Column(length: 40, unique:true)]
     private ?string $deptName = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -28,6 +28,9 @@ class Departement
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $roi = null;
+
+
+
 
    
 
@@ -90,4 +93,8 @@ class Departement
 
         return $this;
     }
+
+ 
+
+  
 }

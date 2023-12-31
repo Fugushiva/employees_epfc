@@ -9,15 +9,16 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: DeptEmpRepository::class)]
 class DeptEmp
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+ 
 
-    #[ORM\Column]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy:"AUTO")]
+    #[ORM\Column(name:'emp_no')]
     private ?int $empNo = null;
 
-    #[ORM\Column(length: 4)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy:"NONE")]
+    #[ORM\Column(name:'dept_no')]
     private ?string $deptNo = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -26,10 +27,7 @@ class DeptEmp
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $toDate = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+  
 
     public function getEmpNo(): ?int
     {
