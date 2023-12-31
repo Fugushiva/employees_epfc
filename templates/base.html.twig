@@ -1,32 +1,44 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {% block stylesheets %}
-            {{ ux_controller_link_tags() }}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		{% block stylesheets %}
+			{{ ux_controller_link_tags() }}
+            <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
 
-        {% block javascripts %}
-{% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        <ul>
-            {% if not app.user %}
-            <li><a href="{{path('app_login')}}">Se connecter</a></li>
-            {% else %}
-            <li><a href="/logout">se déconnecter</a></li>
-            {% endif %}
-        </ul>
-        {% if  app.user %}
-            <div>
-                bonjour {{app.user.firstName}}
-                {{dump(app.user.isAdmin)}}
-            </div>
-        {% endif %}
+		{% endblock %}
 
-        {% block body %}{% endblock %}
-    </body>
+		{% block javascripts %}
+			{% block importmap %}
+				{{ importmap('app') }}
+			{% endblock %}
+		{% endblock %}
+	</head>
+	<body>
+		<ul>
+			{% if not app.user %}
+				<li>
+					<a href="{{path('app_login')}}">Se connecter</a>
+				</li>
+			{% else %}
+				<li>
+					<a href="/logout">se déconnecter</a>
+				</li>
+			{% endif %}
+		</ul>
+		{% if  app.user %}
+			<div>
+				bonjour
+				{{app.user.firstName}}
+				{{dump(app.user.isAdmin)}}
+			</div>
+		{% endif %}
+
+		{% block body %}{% endblock %}
+	</body>
 </html>

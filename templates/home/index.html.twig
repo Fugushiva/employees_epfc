@@ -1,20 +1,44 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Bienvenue sur le Portail de l'Entreprise EPFC{% endblock %}
+
+{% block javascripts %}
+    <script type="module" src="https://geogratis.gc.ca/mapml/client/web-map/mapml-viewer.js" crossorigin></script>
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="bg-gradient-to-b from-purple-300 to-pink-200 min-h-screen">
+        <div class="container mx-auto p-4">
+            <h1 class="text-5xl font-bold mb-4 text-gray-800">Bienvenue à l'EPFC - L'Entreprise Pleine de Possibilités!</h1>
+            <p class="text-lg text-gray-700 mb-8">Le portail où chaque projet est une opportunité et chaque jour est une nouvelle chance de grandir!</p>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+            <section class="mb-8">
+                <h2 class="text-3xl font-bold mb-4 text-blue-500">Découvrez qui nous sommes !</h2>
+                <p class="text-gray-700 mb-4">Bienvenue à l'EPFC, où l'apprentissage prend une dimension sérieuse et unique.</p>
+                <p class="text-gray-700">Explorez notre <a href="#" class="text-blue-500 font-bold">À Propos</a>.</p>
+            </section>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/ademe/Desktop/React/employees_epfc/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/ademe/Desktop/React/employees_epfc/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-</div>
+            <section class="mb-8">
+                <h2 class="text-3xl font-bold mb-4 text-green-500">Les dernières nouvelles sont là !</h2>
+                <a href="#" class="text-blue-500 block mb-4">Découvrez nos dernières actualités sur la vie étudiante!</a>
+                <p class="text-gray-700">Restez informé sur les événements et les opportunités offertes par l'EPFC.</p>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-3xl font-bold mb-4 text-orange-500">Documents Utiles</h2>
+                <p class="text-gray-700">Consultez notre bibliothèque de ressources pour enrichir votre expérience d'apprentissage.</p>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold mb-4 text-purple-500">Localisation de notre Siège Social</h2>
+                <div class="bg-white p-4 rounded-md">
+                    <mapml-viewer projection="OSMTILE" zoom="15" lat="42.3601" lon="-71.0589" controls>
+                        <layer- label="Notre Siège Social" src="https://geogratis.gc.ca/mapml/en/osmtile/osm/" checked="checked"></layer->
+                    </mapml-viewer>
+                </div>
+            </section>
+        </div>
+    </div>
 {% endblock %}
+
+
