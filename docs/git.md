@@ -1,0 +1,28 @@
+# V****ersioning****
+
+- == Début du travail ==
+- Clonage du projet
+    - git clone *URLduDepot*
+- Création d'une nouvelle branche de développement
+    - **git branch *nomDeLaBranche***
+    - **git checkout *nomDeLaBranche***
+- Développement de la fonctionnalité (étape 1/2)
+    - Implémenter la fonctionnalité
+    - Tester la fonctionnalité
+    - git add .
+    - git commit - m "description"
+    - **git push --set-upstream origin *nomDeLaBranche***
+- == Interruption du travail ==
+- == Reprise du travail (sur la même machine locale) ==
+- Développement de la fonctionnalité (étape 2/2)
+    - Versioning du développement *(add, commit)*
+- Fusion avec la branche principale
+    - git checkout master
+    - **git merge *nomDeLabranche***
+- Envoi sur le serveur de la branche master actualisée
+    - git push --set-upstream origin **master**
+- Suppression de la branche locale
+    - git branch -d *nomDeLaBranche*
+- Suppression de la branche distante
+    - git push origin -d *nomDeLaBranche*
+- == Fin du travail ==
