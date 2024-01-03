@@ -19,7 +19,7 @@ class Departement
     #[ORM\Column(name: 'dept_no', length: 4)]
     private ?string $deptNo = null;
 
-    #[ORM\Column(length: 40, unique:true)]
+    #[ORM\Column(length: 40, unique: true)]
     private ?string $deptName = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -31,11 +31,20 @@ class Departement
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $roi = null;
 
-  
 
+    #[ORM\OneToMany(mappedBy: 'departement', targetEntity: DeptEmp::class)]
+    private Collection $employees;
 
+    public function __construct()
+    {
+        $this->employees = new ArrayCollection();
+    }
 
-   
+    public function getEmployees(): Collection
+    {
+        return $this->employees;
+    }
+
 
     public function getDeptNo(): ?string
     {
@@ -97,6 +106,25 @@ class Departement
         return $this;
     }
 
-   
-  
+    public function addEmployee(DeptEmp $deptEmp): self
+    {
+        if (!$this->employees->contains($deptEmp)) {
+            $this->employees[] = $deptEmp;
+            $deptEmp->setDepartement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmployee(DeptEmp $deptEmp): self
+    {
+        if ($this->employees->removeElement($deptEmp)) {
+            // set the owning side to null (unless already changed)
+            if ($deptEmp->getDepartement() === $this) {
+                $deptEmp->setDepartement(null);
+            }
+        }
+
+        return $this;
+    }
 }

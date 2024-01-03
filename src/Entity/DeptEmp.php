@@ -28,7 +28,9 @@ class DeptEmp
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $toDate = null;
 
-
+    #[ORM\ManyToOne(targetEntity: Departement::class, inversedBy: 'employees')]
+    #[ORM\JoinColumn(name: 'dept_no', referencedColumnName: 'dept_no')]
+    private ?Departement $departement = null;
 
 
 
@@ -54,12 +56,6 @@ class DeptEmp
         return $this->deptNo;
     }
 
-    public function setDeptNo(string $deptNo): static
-    {
-        $this->deptNo = $deptNo;
-
-        return $this;
-    }
 
     public function getFromDate(): ?\DateTimeInterface
     {
@@ -81,6 +77,22 @@ class DeptEmp
     public function setToDate(\DateTimeInterface $toDate): static
     {
         $this->toDate = $toDate;
+
+        return $this;
+    }
+
+    public function getDepartement(): ?Departement
+    {
+        return $this->departement;
+    }
+
+    public function setDepartement(?Departement $departement): self
+    {
+        $this->departement = $departement;
+        // Mise à jour du champ deptNo avec la valeur de la clé primaire de Departement
+        if ($departement !== null) {
+            $this->deptNo = $departement->getDeptNo();
+        }
 
         return $this;
     }
