@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\EmpTitleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+
+//jerome
 #[ORM\Table('emp_titles')]
 #[ORM\Entity(repositoryClass: EmpTitleRepository::class)]
 class EmpTitle

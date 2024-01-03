@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+//jerome
 #[ORM\Table('departments')]
 #[ORM\Entity(repositoryClass: DepartementRepository::class)]
 class Departement
@@ -34,6 +35,9 @@ class Departement
 
     #[ORM\OneToMany(mappedBy: 'departement', targetEntity: DeptEmp::class)]
     private Collection $employees;
+
+    #[ORM\OneToOne(mappedBy: 'departement', cascade: ['persist', 'remove'], targetEntity:DeptManager::class)]
+    private ?DeptManager $manager = null;
 
     public function __construct()
     {
@@ -124,6 +128,23 @@ class Departement
                 $deptEmp->setDepartement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getManager(): ?DeptManager
+    {
+        return $this->manager;
+    }
+
+    public function setManager(DeptManager $manager): static
+    {
+        // set the owning side of the relation if necessary
+        if ($manager->getDepartement() !== $this) {
+            $manager->setDepartement($this);
+        }
+
+        $this->manager = $manager;
 
         return $this;
     }

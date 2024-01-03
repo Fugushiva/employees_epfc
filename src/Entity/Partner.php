@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\PartnerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+//jerome
+
 #[ORM\Table('partners')]
 #[ORM\Entity(repositoryClass: PartnerRepository::class)]
 class Partner

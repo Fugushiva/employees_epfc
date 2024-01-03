@@ -4,10 +4,11 @@ namespace App\Entity;
 
 use App\Repository\DemandRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+//jerome
 #[ORM\Table('demand')]
 #[ORM\Entity(repositoryClass: DemandRepository::class)]
 class Demand
+
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

@@ -5,13 +5,13 @@ namespace App\Entity;
 use App\Repository\DeptManagerRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+//jerome
 #[ORM\Table('dept_manager')]
 #[ORM\Entity(repositoryClass: DeptManagerRepository::class)]
 class DeptManager
 {
 
-    
+
 
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: "AUTO")]
@@ -29,7 +29,11 @@ class DeptManager
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $toDate = null;
 
-   
+    #[ORM\OneToOne(inversedBy: 'manager', cascade: ['persist', 'remove'], targetEntity: Departement::class)]
+    #[ORM\JoinColumn(name: "dept_no", nullable: false, referencedColumnName: "dept_no")]
+    private ?departement $departement = null;
+
+
 
     public function getEmpNo(): ?int
     {
@@ -75,6 +79,18 @@ class DeptManager
     public function setToDate(\DateTimeInterface $toDate): static
     {
         $this->toDate = $toDate;
+
+        return $this;
+    }
+
+    public function getDepartement(): ?departement
+    {
+        return $this->departement;
+    }
+
+    public function setDepartement(departement $departement): static
+    {
+        $this->departement = $departement;
 
         return $this;
     }
