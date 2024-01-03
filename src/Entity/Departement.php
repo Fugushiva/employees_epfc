@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DepartementRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -29,6 +31,7 @@ class Departement
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $roi = null;
 
+  
 
 
 
@@ -94,7 +97,6 @@ class Departement
         return $this;
     }
 
- 
-
+   
   
 }

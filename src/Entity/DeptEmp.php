@@ -5,20 +5,21 @@ namespace App\Entity;
 use App\Repository\DeptEmpRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+
 #[ORM\Table('dept_emp')]
 #[ORM\Entity(repositoryClass: DeptEmpRepository::class)]
 class DeptEmp
 {
- 
+
 
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy:"AUTO")]
-    #[ORM\Column(name:'emp_no')]
+    #[ORM\GeneratedValue(strategy: "AUTO")]
+    #[ORM\Column(name: 'emp_no')]
     private ?int $empNo = null;
 
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy:"NONE")]
-    #[ORM\Column(name:'dept_no')]
+    #[ORM\GeneratedValue(strategy: "NONE")]
+    #[ORM\Column(name: 'dept_no', length: 4)]
     private ?string $deptNo = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -27,7 +28,14 @@ class DeptEmp
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $toDate = null;
 
-  
+
+
+
+
+
+
+
+
 
     public function getEmpNo(): ?int
     {

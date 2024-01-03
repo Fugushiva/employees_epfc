@@ -11,14 +11,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Salary
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column(name: 'emp_no')]
-    private ?int $pepe = null;
+    private ?int $id = null;
 
     #[ORM\Column]
     private ?int $salary = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    
+    #[ORM\Id]
+    #[ORM\Column(name: 'from_date',type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $fromDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -26,7 +27,7 @@ class Salary
 
     public function getId(): ?int
     {
-        return $this->pepe;
+        return $this->id;
     }
 
     public function getSalary(): ?int
