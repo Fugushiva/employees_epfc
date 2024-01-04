@@ -19,14 +19,6 @@ class DepartementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('deptNo', TextType::class, [
-                'constraints' => [
-                    new Regex([
-                        'pattern' => '/^d\d{3}$/',
-                        'message' => 'Le numéro de département doit être la lettre "d" suivie de 3 chiffres.',
-                    ]),
-                ],
-            ])
             ->add('deptName')
             ->add('description')
             ->add('adresse')

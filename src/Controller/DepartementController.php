@@ -34,19 +34,35 @@ class DepartementController extends AbstractController
     public function new(Request $request, EntityManagerInterface $em): Response
     {
 
+        
         $departement = new Departement();
-
         $departementForm = $this->createForm(DepartementType::class, $departement);
-
         $departementForm->handleRequest($request);
+
+        $connection = $em->getConnection();
+        $query = "SELECT dept_no FROM departments ORDER BY dept_no DESC LIMIT 1";
+        $result = $connection->executeQuery($query);
+        $lastDeptNo = $result->fetchOne();
+
+        //nb après "d"
+        $lastNumber = substr($lastDeptNo, 1);
+
+        //Définition nouveau nb (incrémentation)
+        $newNumber = $lastNumber + 1;
+
+        //Reformater deptNo
+        $newDeptNo = 'd' . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
+
+        $departement->setDeptNo($newDeptNo);
+
+
 
         if ($departementForm->isSubmitted() && $departementForm->isValid()) {
             $em->persist($departement);
             $em->flush();
 
-            return $this->redirectToRoute('app_department_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_departement_index', [], Response::HTTP_SEE_OTHER);
         }
-
 
 
         return $this->render('departement/new.html.twig', [
