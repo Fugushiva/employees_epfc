@@ -15,10 +15,15 @@
     {% for dep in departements %}
         <ul><h3>{{dep.deptname}}</h3>
         <li>{{dep.description}}</li>
-      
+
         </ul>
-        
+    {% else %}
+        <p>rien a afficher</p>
     {% endfor %}
+
+        
+
+ <p><a href="{{path('app_departement_new')}}">ajouter</a></p>
  
 </div>
 {% endblock %}

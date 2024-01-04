@@ -66,6 +66,9 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[ORM\OneToOne(mappedBy: 'employee', cascade: ['persist', 'remove'])]
+    private ?DeptManager $deptManager = null;
+
     public function __construct()
     {
         $this->demands = new ArrayCollection();
@@ -251,5 +254,27 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     public function isAdmin(): bool
     {
         return in_array('ROLE_ADMIN', $this->roles);
+    }
+
+    public function getDeptManager(): ?DeptManager
+    {
+        return $this->deptManager;
+    }
+
+    public function setDeptManager(?DeptManager $deptManager): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($deptManager === null && $this->deptManager !== null) {
+            $this->deptManager->setEmployee(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($deptManager !== null && $deptManager->getEmployee() !== $this) {
+            $deptManager->setEmployee($this);
+        }
+
+        $this->deptManager = $deptManager;
+
+        return $this;
     }
 }

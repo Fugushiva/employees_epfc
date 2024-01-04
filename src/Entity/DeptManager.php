@@ -33,6 +33,12 @@ class DeptManager
     #[ORM\JoinColumn(name: "dept_no", nullable: false, referencedColumnName: "dept_no")]
     private ?departement $departement = null;
 
+    #[ORM\OneToOne(inversedBy: 'deptManager', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: "emp_no", nullable: false, referencedColumnName: "emp_no")]
+    private ?Employee $employee = null;
+
+    
+
 
 
     public function getEmpNo(): ?int
@@ -94,4 +100,18 @@ class DeptManager
 
         return $this;
     }
+
+    public function getEmployee(): ?Employee
+    {
+        return $this->employee;
+    }
+
+    public function setEmployee(?Employee $employee): static
+    {
+        $this->employee = $employee;
+
+        return $this;
+    }
+
+
 }
