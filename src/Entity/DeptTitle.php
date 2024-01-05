@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\DeptTitleRepository;
 use Doctrine\ORM\Mapping as ORM;
+
 #[ORM\Table('dept_title')]
 #[ORM\Entity(repositoryClass: DeptTitleRepository::class)]
 class DeptTitle
