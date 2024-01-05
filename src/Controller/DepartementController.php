@@ -22,9 +22,13 @@ class DepartementController extends AbstractController
     {
         $departementsData = $dr->findAll();
 
+        $departement = $dr->findAll();
+   
+
         return $this->render('departement/index.html.twig', [
             'controller_name' => 'DepartementController',
             "departements" => $departementsData,
+           // "picture" => $managerPicture
 
 
         ]);
@@ -34,7 +38,7 @@ class DepartementController extends AbstractController
     public function new(Request $request, EntityManagerInterface $em): Response
     {
 
-        
+
         $departement = new Departement();
         $departementForm = $this->createForm(DepartementType::class, $departement);
         $departementForm->handleRequest($request);
@@ -67,6 +71,22 @@ class DepartementController extends AbstractController
 
         return $this->render('departement/new.html.twig', [
             'form' => $departementForm,
+
+
+
+        ]);
+    }
+
+    #[Route('/departement', name: 'app_departement_show', methods: ['GET'])]
+    public function show(DepartementRepository $dr, string $depNo): Response
+    {
+
+
+
+
+        return $this->render('departement/index.html.twig', [
+            'controller_name' => 'DepartementController',
+
 
 
 

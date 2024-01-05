@@ -15,6 +15,16 @@
     {% for dep in departements %}
         <ul><h3>{{dep.deptname}}</h3>
         <li>{{dep.description}}</li>
+        {% set img = dep.getManager.getEmployee.getPhoto~'.png' %}
+       <img src='' >
+        <!--Iterations sur les employés-->
+        {% set count = 0 %}
+        {% for employee in dep.getEmployees %}
+                {% set count = count +1 %}
+        {% endfor %}
+        <li>{{count}} employés dans ce secteur</li>
+         
+
 
         </ul>
     {% else %}
