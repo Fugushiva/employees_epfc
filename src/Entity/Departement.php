@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Departement
 {
 
-
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: "NONE")]
     #[ORM\Column(name: 'dept_no', length: 4)]
@@ -31,11 +30,14 @@ class Departement
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $roi = null;
 
-  
+    #[ORM\OneToMany(mappedBy: 'departement', targetEntity: DeptTitle::class)]
+    private Collection $deptTitles;
 
 
-
-   
+    public function __construct()
+    {
+        $this->deptTitles = new ArrayCollection();
+    }
 
     public function getDeptNo(): ?string
     {
@@ -97,6 +99,34 @@ class Departement
         return $this;
     }
 
-   
+    /**
+     * @return Collection<int, DeptTitle>
+     */
+    public function getDeptTitles(): Collection
+    {
+        return $this->deptTitles;
+    }
+
+    public function addDeptTitle(DeptTitle $deptTitle): static
+    {
+        if (!$this->deptTitles->contains($deptTitle)) {
+            $this->deptTitles->add($deptTitle);
+            $deptTitle->setDepartement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeptTitle(DeptTitle $deptTitle): static
+    {
+        if ($this->deptTitles->removeElement($deptTitle)) {
+            // set the owning side to null (unless already changed)
+            if ($deptTitle->getDepartement() === $this) {
+                $deptTitle->setDepartement(null);
+            }
+        }
+
+        return $this;
+    } 
   
 }

@@ -20,6 +20,13 @@ class DeptTitle
     #[ORM\Column]
     private ?int $titleId = null;
 
+    #[ORM\ManyToOne(inversedBy: 'deptTitles')]
+    private ?Title $title = null;
+
+    #[ORM\ManyToOne(inversedBy: 'deptTitles')]
+    #[ORM\JoinColumn(name: 'dept_no', nullable: false, referencedColumnName: 'dept_no')]
+    private ?Departement $departement = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -48,4 +55,29 @@ class DeptTitle
 
         return $this;
     }
+
+    public function getTitles(): ?Title
+    {
+        return $this->title;
+    }
+
+    public function setTitles(?Title $title): static
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getDepartement(): ?Departement
+    {
+        return $this->departement;
+    }
+
+    public function setDepartement(?Departement $departement): static
+    {
+        $this->departement = $departement;
+
+        return $this;
+    }
+
 }

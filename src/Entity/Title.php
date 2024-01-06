@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TitleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -21,6 +23,14 @@ class Title
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
+
+    #[ORM\OneToMany(mappedBy: 'titles', targetEntity: DeptTitle::class)]
+    private Collection $deptTitles;
+
+    public function __construct()
+    {
+        $this->deptTitles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -47,6 +57,36 @@ class Title
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DeptTitle>
+     */
+    public function getDeptTitles(): Collection
+    {
+        return $this->deptTitles;
+    }
+
+    public function addDeptTitle(DeptTitle $deptTitle): static
+    {
+        if (!$this->deptTitles->contains($deptTitle)) {
+            $this->deptTitles->add($deptTitle);
+            $deptTitle->setTitles($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeptTitle(DeptTitle $deptTitle): static
+    {
+        if ($this->deptTitles->removeElement($deptTitle)) {
+            // set the owning side to null (unless already changed)
+            if ($deptTitle->getTitles() === $this) {
+                $deptTitle->setTitles(null);
+            }
+        }
 
         return $this;
     }

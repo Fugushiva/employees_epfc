@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DeptTitleController!{% endblock %}
+{% block title %}Poste Vacant{% endblock %}
 
 {% block body %}
 <style>
@@ -15,9 +15,12 @@
 {% for poste in postes %}
 
     <ul>
-        <h3>{{poste.titleId.getId.getTitle}}</h3>
-        <li>{{poste.deptNo}}</li>
+        <h3>On recherche un {{poste.getTitles.getTitle}} dans le département {{poste.getDepartement.getDeptName}} ({{poste.deptNo}})</h3>
+        <form>
+        prénom <input> 
+        nom <input>
         <button> Postuler </button>
+        </form>
     </ul>
         
 {% endfor %}
