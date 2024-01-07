@@ -4,10 +4,47 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: inline-block; width: 80px; }
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="file"] { width: calc(50% - 45px); padding: 6px 10px; }
+    button { padding: 8px 16px; }
 </style>
 
-<div class="example-wrapper">
 
- 
+{#  Après avoir appuyé sur un job qui nous intéresse, on atterrit sur cette page qui va donner
+    plus de détails sur le job et un formulaire qui va permettre de postuler en fournissant
+    le prénom, nom, le mail et le cv de la personne.#}
+
+<div class="example-wrapper">
+    <h2>{{ poste.getTitles.getTitle }} - {{ poste.getDepartement.getDeptName }}</h2>
+    <h3> Description : </h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate eros a magna fermentum ultrices.
+        Integer eget mauris eget nulla consequat commodo at vitae eros. Vestibulum ut nisi vitae ligula lacinia
+        tincidunt. Vivamus quis libero nec tortor sollicitudin fermentum. Cras tempor nec nulla vel sagittis.
+        Fusce tristique, mi vel consequat ullamcorper, quam ligula consectetur nisi, vitae auctor odio sapien eget
+        lectus. Phasellus ultricies placerat risus, nec finibus sapien. Sed viverra ac lectus vitae molestie.
+    </p>
+    <form>
+        <div class="form-group">
+            <label for="first_name">Prénom :</label>
+            <input type="text" id="first_name" name="first_name" required>
+        </div>
+        <div class="form-group">
+            <label for="last_name">Nom :</label>
+            <input type="text" id="last_name" name="last_name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail :</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="cv">CV :</label>
+            <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" required>
+        </div>
+        <button type="submit">Envoyer</button>
+    </form>
 </div>
 {% endblock %}

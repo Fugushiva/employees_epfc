@@ -6,24 +6,30 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .poste{ background:white}
 </style>
 
 <div class="example-wrapper">
 
-<h1>Poste vacant</h1>
+<h1>Poste disponible</h1>
+
+{#  Cette boucle va servir à afficher tous les postes qui sont disponibles.
+    Le titre du job, le département qui recherche ce job et une petite description.#}
 
 {% for poste in postes %}
-
     <ul>
-        <h3>On recherche un {{poste.getTitles.getTitle}} dans le département {{poste.getDepartement.getDeptName}} ({{poste.deptNo}})</h3>
-        <form>
-        prénom <input> 
-        nom <input>
-        <button> Postuler </button>
-        </form>
-    </ul>
-        
+    <div class= poste>
+        <h3><a href= {{ path('app_dept_title_show', { "id" : poste.getId }) }}> {{poste.getTitles.getTitle}} - {{poste.getDepartement.getDeptName}}</a></h3>
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate eros a magna fermentum ultrices.
+        Integer eget mauris eget nulla consequat commodo at vitae eros. Vestibulum ut nisi vitae ligula lacinia
+        tincidunt.
+        </p>
+    </div>
+    </ul>  
+ 
 {% endfor %}
 
 </div>
+
 {% endblock %}
