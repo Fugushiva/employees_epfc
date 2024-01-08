@@ -7,42 +7,54 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<DeptTitle>
+ * Cette classe représente le repository pour l'entité DeptTitle.
  *
- * @method DeptTitle|null find($id, $lockMode = null, $lockVersion = null)
- * @method DeptTitle|null findOneBy(array $criteria, array $orderBy = null)
- * @method DeptTitle[]    findAll()
- * @method DeptTitle[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends ServiceEntityRepository<DeptTitle>
  */
 class DeptTitleRepository extends ServiceEntityRepository
 {
+    /**
+     * Constructeur de la classe.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, DeptTitle::class);
     }
 
-//    /**
-//     * @return DeptTitle[] Returns an array of DeptTitle objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('d.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * Recherche les postes par titre.
+     *
+     * @param string $title
+     *
+     * @return array<DeptTitle>
+     */
+    public function findByTitle(string $title): array
+    {
+        // Création d'une requête pour récupérer les postes par titre spécifié
+        return $this->createQueryBuilder('dt')
+            ->andWhere('dt.title = :title') // Filtrer par le titre
+            ->setParameter('title', $title) // Définir le paramètre du titre
+            ->getQuery() // Obtenir la requête
+            ->getResult(); // Récupérer les résultats
+    }
 
-//    public function findOneBySomeField($value): ?DeptTitle
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * Recherche les postes par département.
+     *
+     * @param string $departmentNo
+     *
+     * @return array<DeptTitle>
+     */
+    public function findByDepartment(string $departmentNo): array
+    {
+        // Création d'une requête pour récupérer les postes par numéro de département spécifié
+        return $this->createQueryBuilder('dt')
+            ->leftJoin('dt.departement', 'd') // Jointure avec l'entité département associée
+            ->andWhere('d.deptNo = :deptNo') // Filtrer par numéro de département
+            ->setParameter('deptNo', $departmentNo) // Définir le paramètre du numéro de département
+            ->getQuery() // Obtenir la requête
+            ->getResult(); // Récupérer les résultats
+    }
 }
