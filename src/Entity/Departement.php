@@ -8,14 +8,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Table('departments')]
 #[ORM\Entity(repositoryClass: DepartementRepository::class)]
 class Departement
 {
-
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: "NONE")]
-    #[ORM\Column(name: 'dept_no', length: 4)]
+    #[ORM\Column(name: 'dept_no', type: 'string', length: 4)]
     private ?string $deptNo = null;
 
     #[ORM\Column(length: 40, unique:true)]
@@ -32,6 +31,10 @@ class Departement
 
     #[ORM\OneToMany(mappedBy: 'departement', targetEntity: DeptTitle::class)]
     private Collection $deptTitles;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: 'dept_no', nullable: false, referencedColumnName: 'dept_no')]
+    private ?DeptManager $deptManager = null;
 
 
     public function __construct()
@@ -127,6 +130,19 @@ class Departement
         }
 
         return $this;
+    }
+
+    public function getDeptManager(): ?DeptManager
+    {
+        return $this->deptManager;
+    }
+
+    public function setDeptManager(?DeptManager $deptManager): static
+    {
+        $this->deptManager = $deptManager;
+
+        return $this;
     } 
+    
   
 }

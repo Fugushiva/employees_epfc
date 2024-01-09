@@ -28,7 +28,7 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: "AUTO")]
     #[ORM\Column(name: 'emp_no')]
-    private ?int $id = null;
+    private ?int $empNo = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $birthDate = null;
@@ -54,7 +54,7 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Email]
     private ?string $email = null;
 
-    #[ORM\OneToMany(mappedBy: 'employe', targetEntity: Demand::class)]
+    #[ORM\OneToMany(mappedBy: 'employee', targetEntity: Demand::class)]
     private Collection $demands;
 
     #[ORM\Column]
@@ -66,14 +66,19 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: 'emp_no', nullable: false, referencedColumnName: 'emp_no')]
+    private ?DeptManager $deptManager = null;
+
     public function __construct()
     {
         $this->demands = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getEmpNo(): ?int
     {
-        return $this->id;
+        return $this->empNo;
     }
 
     public function getBirthDate(): ?\DateTimeInterface
@@ -252,4 +257,18 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return in_array('ROLE_ADMIN', $this->roles);
     }
+
+    public function getDeptManager(): ?DeptManager
+    {
+        return $this->deptManager;
+    }
+
+    public function setDeptManager(?DeptManager $deptManager): static
+    {
+        $this->deptManager = $deptManager;
+
+        return $this;
+    } 
+
 }
+

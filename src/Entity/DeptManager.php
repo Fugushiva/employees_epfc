@@ -10,12 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: DeptManagerRepository::class)]
 class DeptManager
 {
-
-    
-
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: "AUTO")]
-    #[ORM\Column(name: "emp_no")]
     private ?int $empNo = null;
 
     #[ORM\Id]
@@ -29,7 +25,13 @@ class DeptManager
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $toDate = null;
 
-   
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: 'emp_no', nullable: false, referencedColumnName: 'emp_no')]
+    private ?Employee $employee = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: 'dept_no', nullable: false, referencedColumnName: 'dept_no')]
+    private ?Departement $departement = null;
 
     public function getEmpNo(): ?int
     {
@@ -75,6 +77,31 @@ class DeptManager
     public function setToDate(\DateTimeInterface $toDate): static
     {
         $this->toDate = $toDate;
+
+        return $this;
+    }
+
+    public function getEmployee(): ?Employee
+    {
+        return $this->employee;
+    }
+
+    public function setEmployee(?Employee $employee): static
+    {
+        $this->employee = $employee;
+
+        return $this;
+    }
+
+
+    public function getDepartement(): ?Departement
+    {
+        return $this->departement;
+    }
+
+    public function setDepartement(?Departement $departement): static
+    {
+        $this->departement = $departement;
 
         return $this;
     }
