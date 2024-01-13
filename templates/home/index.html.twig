@@ -1,0 +1,72 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Bienvenue sur le Portail de l'Entreprise EPFC
+{% endblock %}
+
+{% block javascripts %}
+	<script type="module" src="https://geogratis.gc.ca/mapml/client/web-map/mapml-viewer.js" crossorigin></script>
+{% endblock %}
+
+{% block body %}
+	<div class="bg-white">
+		<div class="container mx-auto p-4">
+			<h1 class="text-5xl font-bold mb-4 text-gray-800">Bienvenue à l'EPFC</h1>
+			<p class="text-lg text-gray-700 mb-8">Le portail où chaque projet est une opportunité et chaque jour est une nouvelle chance de grandir!</p>
+
+			<section class="mb-8">
+				<h2 class="text-3xl font-bold mb-4 text-gray-800">Qui sommes-nous ?</h2>
+				<p class="text-gray-700 mb-4">Bienvenue à l'EPFC, où l'apprentissage prend une dimension sérieuse et unique.</p>
+				<p class="text-gray-700">Explorez notre
+					<a href="#" class="text-blue-500 font-bold">À Propos</a>.</p>
+			</section>
+
+			<section class="mb-8">
+				<h2 class="text-3xl font-bold mb-4 text-gray-800">Communiqués de presse</h2>
+				<p class="text-gray-700 mb-4">Consultez nos dernières parutions dans la presse</p>
+				<ul class="list-disc pl-6">
+					<li>
+						<a href="#" class="text-blue-500">Article 1</a>
+					</li>
+					<li>
+						<a href="#" class="text-blue-500">Article 2</a>
+					</li>
+					<li>
+						<a href="#" class="text-blue-500">Article 3</a>
+					</li>
+				</ul>
+			</section>
+
+			<section class="mb-8">
+				<h2 class="text-3xl font-bold mb-4 text-gray-800">Documents</h2>
+				<p class="text-gray-700 mb-4">Explorez nos documents utiles.</p>
+				<ul class="list-disc pl-6">
+					<li>
+						<a href="#" class="text-blue-500">Rapport Annuel</a>
+					</li>
+					<li>
+						<a href="#" class="text-blue-500">Document 2</a>
+					</li>
+					<li>
+						<a href="#" class="text-blue-500">Document 3</a>
+					</li>
+				</ul>
+			</section>
+			<div class="flex flex-row justify-between">
+				<section class="mb-8">
+					<h2 class="text-3xl font-bold mb-4 text-gray-800">Localisation du siège</h2>
+					<div class="bg-white p-4 rounded-md shadow-md w-[400px]">
+						<mapml-viewer projection="OSMTILE" zoom="15" class="w-full" lat="50.85149098588743" lon="4.369491247167985" controls>
+							<layer- label="Marker" src="https://geogratis.gc.ca/mapml/en/osmtile/osm/" checked="checked"></layer->
+						</mapml-viewer>
+					</div>
+				</section>
+
+				<section class="mb-8">
+					<h2 class="text-3xl font-bold mb-4  text-gray-800">Téléchargement de l'application via QR Code</h2>
+					<p class="text-gray-700 mb-4">Scannez le QR code ci-dessous pour télécharger notre application mobile!</p>
+					<img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://epfc.eu/" alt="QR Code">
+				</section>
+			</div>
+		</div>
+	</div>
+{% endblock %}
