@@ -15,7 +15,7 @@
     {% for dep in departements %}
         <ul><h3>{{dep.deptname}}</h3>
         <li>{{dep.description}}</li>
-        {% set img = dep.getManager.getEmployee.getPhoto~'.png' %}
+        {% set img = dep.getManager is not null ? dep.getManager.getEmployee.getPhoto~'.png':'' %}
        <img src='' >
         <!--Iterations sur les employés-->
         {% set count = 0 %}
