@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Partenaires{% endblock %}
+
+{% block body %}
+    <h1>Liste des Partenaires</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Logo</th>
+                <th>Titre</th>
+                <th>Site Web</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for partner in partners %}
+                <tr>
+                    <td><img src="{{ asset('/images/' ~ partner.getLogo()) }}" alt="{{ partner.getTitle() }}" width="200"></td>
+                    <td>{{ partner.getTitle() }}</td>
+                    <td><a href="{{ partner.getUrl() }}" target="_blank">{{ partner.getUrl() }}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
