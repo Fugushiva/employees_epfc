@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Leave index{% endblock %}
+
+{% block body %}
+    <h1>Absences du jour</h1>
+
+    {% for employee in employees %}
+        {% for leave in employee.leaves %}
+            {% if leave.end|date('Y-m-d') > "now"|date('Y-m-d') %}
+                {# Afficher les informations de l'employé et du congé ici #}
+                <div>{{ employee.firstName }} {{ employee.lastName }} <a href="{{ path('app_leave_return', {'id': leaves.0.id}) }}"><button style="background-color: #B0413E">terminer</button></a></div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
+    <a href="{{ path('app_leave_new') }}">Create new</a>
+{% endblock %}

@@ -69,9 +69,29 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'employee', cascade: ['persist', 'remove'])]
     private ?DeptManager $deptManager = null;
 
+    #[ORM\ManyToMany(targetEntity: Mission::class, mappedBy: 'employee')]
+    private Collection $missions;
+
+ 
+
+    #[ORM\OneToMany(mappedBy: 'empNo', targetEntity: Intern::class)]
+    #[ORM\JoinColumn(name: 'emp_no', referencedColumnName:'emp_no' ,nullable: true)]
+    private Collection $interns;
+
+    #[ORM\OneToOne(mappedBy: 'empNo', cascade: ['persist', 'remove'])]
+    private ?CarEmp $carEmp = null;
+
+    #[ORM\OneToMany(mappedBy: 'empNo', targetEntity: Leave::class)]
+    #[ORM\JoinColumn(name: 'emp_no', referencedColumnName:'emp_no')]
+    private Collection $leaves;
+
     public function __construct()
     {
         $this->demands = new ArrayCollection();
+        $this->missions = new ArrayCollection();
+       
+        $this->interns = new ArrayCollection();
+        $this->leaves = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -274,6 +294,115 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->deptManager = $deptManager;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Mission>
+     */
+    public function getMissions(): Collection
+    {
+        return $this->missions;
+    }
+
+    public function addMission(Mission $mission): static
+    {
+        if (!$this->missions->contains($mission)) {
+            $this->missions->add($mission);
+            $mission->addEmployee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMission(Mission $mission): static
+    {
+        if ($this->missions->removeElement($mission)) {
+            $mission->removeEmployee($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Intern>
+     */
+    public function getInterns(): Collection
+    {
+        return $this->interns;
+    }
+
+    public function addIntern(Intern $intern): static
+    {
+        if (!$this->interns->contains($intern)) {
+            $this->interns->add($intern);
+            $intern->setEmpNo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIntern(Intern $intern): static
+    {
+        if ($this->interns->removeElement($intern)) {
+            // set the owning side to null (unless already changed)
+            if ($intern->getEmpNo() === $this) {
+                $intern->setEmpNo(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCarEmp(): ?CarEmp
+    {
+        return $this->carEmp;
+    }
+
+    public function setCarEmp(?CarEmp $carEmp): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($carEmp === null && $this->carEmp !== null) {
+            $this->carEmp->setEmpNo(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($carEmp !== null && $carEmp->getEmpNo() !== $this) {
+            $carEmp->setEmpNo($this);
+        }
+
+        $this->carEmp = $carEmp;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Leave>
+     */
+    public function getLeaves(): Collection
+    {
+        return $this->leaves;
+    }
+
+    public function addLeaf(Leave $leaf): static
+    {
+        if (!$this->leaves->contains($leaf)) {
+            $this->leaves->add($leaf);
+            $leaf->setEmpNo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLeaf(Leave $leaf): static
+    {
+        if ($this->leaves->removeElement($leaf)) {
+            // set the owning side to null (unless already changed)
+            if ($leaf->getEmpNo() === $this) {
+                $leaf->setEmpNo(null);
+            }
+        }
 
         return $this;
     }

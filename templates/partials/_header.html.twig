@@ -29,6 +29,14 @@
 				<li>
 					<a href="#" class="text-white">Demandes</a>
 				</li>
+				{% if app.user%}
+					<a href="{{path('app_mission_show_mes_missions', {'id': app.user.id})}}" class="text-white">Mes missions</a>
+					<a href="{{path("app_car_index")}}" class="text-white">gérer les échanges</a>
+					<a href="{{ path("app_leave_index") }}" class="text-white">afficher les absences</a>
+				{% endif %}
+				{% if is_granted("ROLE_ADMIN") %}
+					<a href="{{path('app_intern_show_mine', {id: app.user.id})}} " class="text-white">Mes stagiaires</a>
+				{% endif %}
 			</ul>
 
 			<ul class="flex space-x-4">

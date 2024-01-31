@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mission{% endblock %}
+
+{% block body %}
+    <h1>Mission</h1>
+    
+{% for mission in missions %}
+    <table class="table">
+        
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ dump(mission) }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ mission.description }}</td>
+            </tr>
+            <tr>
+                <th>DueDate</th>
+                <td>{{ mission.dueDate ? mission.dueDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ mission.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% endfor %}
+
+
+
+{% endblock %}

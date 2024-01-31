@@ -42,6 +42,9 @@ class Departement
     #[ORM\OneToMany(mappedBy: 'departement', targetEntity: DeptTitle::class)]
     private Collection $deptTitles;
 
+    #[ORM\OneToMany(mappedBy: 'deptNo', targetEntity: Intern::class)]
+    private Collection $interns;
+
 
 
 
@@ -50,6 +53,7 @@ class Departement
     {
         $this->employees = new ArrayCollection();
         $this->deptTitles = new ArrayCollection();
+        $this->interns = new ArrayCollection();
       
     }
 
@@ -184,6 +188,36 @@ class Departement
             // set the owning side to null (unless already changed)
             if ($deptTitle->getDepartement() === $this) {
                 $deptTitle->setDepartement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Intern>
+     */
+    public function getInterns(): Collection
+    {
+        return $this->interns;
+    }
+
+    public function addIntern(Intern $intern): static
+    {
+        if (!$this->interns->contains($intern)) {
+            $this->interns->add($intern);
+            $intern->setDeptNo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIntern(Intern $intern): static
+    {
+        if ($this->interns->removeElement($intern)) {
+            // set the owning side to null (unless already changed)
+            if ($intern->getDeptNo() === $this) {
+                $intern->setDeptNo(null);
             }
         }
 

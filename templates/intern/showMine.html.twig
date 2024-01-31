@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Intern{% endblock %}
+
+{% block body %}
+    <h1>Liste des stagiaire</h1>
+
+    <select>
+    {% for employee in empWithoutInterns %}
+        <option value="{{employee.id}}">{{employee.firstName}} {{employee.lastName}}</option>
+    {% endfor %}
+    </select>
+    
+    {% set displayedDepartments = [] %}
+
+    {% for intern in internsLj %}
+        {% if intern.getDeptNo.getDeptName not in displayedDepartments %}
+            <h2>{{ intern.getDeptNo.getDeptName }}</h2>
+            {% set displayedDepartments = displayedDepartments|merge([intern.getDeptNo.getDeptName]) %}
+        {% endif %}
+        {% if intern.empNo is not null %}
+            {% if intern.empNo.id == app.user.id %}
+                <p>{{intern.fullName}} -- {{intern.startDate|date('d/m/Y')}}<a href="{{path('app_intern_unsup', {id:intern.empNo.id, intern_id:intern.id} )}}"><button>Ne plus superviser</button></a></p>
+            {% endif %}
+        {% else %}
+             <p>{{intern.fullName}} -- {{intern.startDate|date('d/m/Y')}}><a href="{{path('app_intern_sup', {intern_id:intern.id, id:app.user.id})}}"><button>Superviser</button></a></p>
+        {% endif %}
+    {% endfor %}
+
+           </tr>
+            </tbody>
+            </table>
+         <a href="{{ path('app_intern_index') }}">back to list</a>
+
+
+    
+          
+
+            
+
+{% endblock %}
+
+

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="gestion-employes">
+    <h1>Gestion des Employés</h1>
+
+    {{ form_start(form) }}
+    <div class="echange-voiture">
+        {{ form_widget(form.employee) }}
+        <button type="submit">{{ form.echanger.vars.label }}</button>
+    </div>
+    {{ form_end(form) }}
+
+    <div class="navigation">
+        <a href="#">Précédent</a> | <a href="#">Suivant</a>
+    </div>
+</div>
+{% endblock %}
